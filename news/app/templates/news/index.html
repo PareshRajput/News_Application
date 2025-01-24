@@ -1,0 +1,105 @@
+{% extends "news/base.html" %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Bootstrap News Cards</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-img-overlay {
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.8));
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .card-title:hover {
+            text-decoration: underline;
+            color: #ffc107;
+        }
+
+        .card-text {
+            font-size: 0.95rem;
+            color: #f8f9fa;
+        }
+
+        .read-more {
+            background-color: #ffc107;
+            color: #212529;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            transition: background-color 0.3s ease;
+        }
+
+        .read-more:hover {
+            background-color: #d39e00;
+        }
+
+        .card-footer {
+            background-color: #f8f9fa;
+            border-top: none;
+        }
+
+        .card-footer small {
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-5 my-5">
+        <h1 class="text-center mb-5">Latest News</h1>
+        {% block body %}
+        <div class="row g-4">
+            {% for article in articles %}
+            <div class="col-md-4 my-3">
+                <div class="card shadow-sm">
+                    <img src="{{ article.urlToImage }}" class="card-img-top" alt="News Image">
+                    <div class="card-img-overlay">
+                        <a href="{{ article.url }}" class="card-title text-light" target="_blank">{{ article.title }}</a>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">{{ article.description }}</p>
+                        <a href="{{ article.url }}" class="btn read-more mt-3" target="_blank">Read More</a>
+                    </div>
+                    <div class="card-footer text-muted">
+                        <small>Published: {{ article.publishedAt }}</small>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endblock body %}
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
